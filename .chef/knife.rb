@@ -1,11 +1,12 @@
 current_dir = File.dirname(__FILE__)
+user = ENV['OPSCODE_USER'] || ENV['USER']
 log_level                :info
 log_location             STDOUT
-node_name                "subakva"
-client_key               "#{current_dir}/subakva-opscode.pem"
-validation_client_name   "subakva-validator"
-validation_key           "#{current_dir}/subakva-validator.pem"
-chef_server_url          "https://api.opscode.com/organizations/subakva"
+node_name                user
+client_key               "#ENV['HOME']}/.chef/#{user}.pem"
+validation_client_name   "#{ENV['ORGNAME']}-validator"
+validation_key           "#{ENV['HOME']}/.chef/#{ENV['ORGNAME']}-validator.pem"
+chef_server_url          "https://api.opscode.com/organizations/#{ENV['ORGNAME']}"
 cache_type               'BasicFile'
 cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
 cookbook_path            ["#{current_dir}/../cookbooks"]
